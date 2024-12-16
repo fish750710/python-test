@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% set show_sidebar = false %}
+
+{% block title %}Welcome to Task Manager{% endblock %}
+
+{% block additional_styles %}
+.welcome-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(45deg, #1a1d20, #212529);
+}
+
+.welcome-content {
+    text-align: center;
+    padding: 2rem;
+}
+
+.enter-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-size: 1.25rem;
+    color: var(--dark-text);
+    background: transparent;
+    border: 2px solid var(--dark-text);
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.enter-button:hover {
+    color: var(--dark-bg);
+    background: var(--dark-text);
+    transform: scale(1.05);
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin: 1rem;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease;
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+{% endblock %}
+
+{% block content %}
+<div class="welcome-container">
+    <div class="welcome-content">
+        <h1 class="mb-4 hidden">Task Manager</h1>
+        <p class="mb-5 hidden">自動化腳本管理系統</p>
+        
+        <div class="row hidden">
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <i class="bi bi-globe fs-1"></i>
+                    <h3>國際版腳本</h3>
+                    <p>管理和執行國際版相關的自動化任務</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="feature-card">
+                    <i class="bi bi-currency-exchange fs-1"></i>
+                    <h3>Upay腳本</h3>
+                    <p>處理 Upay 相關的自動化操作</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="{{ url_for('main.task') }}" class="enter-button mt-5 hidden">
+            進入系統
+        </a>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const elements = document.querySelectorAll('.hidden');
+    
+    function showElements() {
+        elements.forEach((el, index) => {
+            setTimeout(() => {
+                el.classList.add('visible');
+            }, index * 200);
+        });
+    }
+
+    showElements();
+});
+</script>
+{% endblock %}

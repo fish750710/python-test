@@ -1,0 +1,108 @@
+2024-12-11 16:24:03,127 - INFO - 591房屋信息保存到: house/house_20241211_162403.json
+2024-12-11 16:27:45,670 - INFO - 591房屋信息保存到: house/house_20241211_162745.json
+2024-12-11 16:30:06,208 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:30:14,561 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:31:08,974 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:31:38,770 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:31:53,543 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:39:51,570 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:40:57,210 - INFO - 591房屋信息保存到: house/house_data.json
+2024-12-11 16:47:38,680 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 16:50:47,688 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 16:55:30,310 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 16:57:48,893 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 18:54:16,493 - ERROR - Failed to send Telegram message. Status code: 403
+2024-12-11 18:54:16,493 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:00:48,509 - ERROR - Failed to send Telegram message. Status code: 400
+2024-12-11 19:00:48,510 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:01:15,370 - INFO - Telegram message sent successfully.
+2024-12-11 19:01:15,370 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:06:29,954 - INFO - Telegram message sent successfully.
+2024-12-11 19:06:29,954 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:10:10,618 - INFO - Telegram message sent successfully.
+2024-12-11 19:10:10,619 - INFO - 有新的房屋: 1
+2024-12-11 19:10:10,619 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:11:02,709 - INFO - Telegram message sent successfully.
+2024-12-11 19:11:02,709 - INFO - 有新的房屋: 1
+2024-12-11 19:11:02,710 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:12:04,949 - INFO - Telegram message sent successfully.
+2024-12-11 19:12:04,950 - INFO - 有新的房屋: 2
+2024-12-11 19:12:04,951 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:12:19,048 - INFO - Telegram message sent successfully.
+2024-12-11 19:12:19,048 - INFO - 有新的房屋: 2
+2024-12-11 19:12:19,049 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:12:42,826 - INFO - Telegram message sent successfully.
+2024-12-11 19:12:42,827 - INFO - 有新的房屋: 2
+2024-12-11 19:12:42,828 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:15:15,088 - ERROR - Failed to send Telegram message. Status code: 400
+2024-12-11 19:15:15,088 - INFO - 有新的房屋: 9
+2024-12-11 19:15:15,089 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:16:17,923 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:16:36,575 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:16:42,144 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:18:47,287 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:19:06,217 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:19:12,481 - INFO - 有新的房屋: 9
+2024-12-11 19:19:12,481 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:20:15,283 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:20:21,942 - INFO - Telegram message sent successfully.
+2024-12-11 19:20:21,942 - INFO - 有新的房屋: 9
+2024-12-11 19:20:21,942 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:29:16,977 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:29:26,471 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:29:55,663 - INFO - Telegram message sent successfully.
+2024-12-11 19:29:55,663 - INFO - 有新的房屋: 20
+2024-12-11 19:29:55,663 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:31:37,652 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:33:20,829 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:33:30,602 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:33:36,649 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:33:42,200 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:33:49,305 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:33:58,338 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:34:18,698 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:34:27,679 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:34:34,113 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:34:44,386 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:34:56,453 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:40:02,788 - INFO - Telegram message sent successfully.
+2024-12-11 19:40:02,789 - INFO - 有新的房屋: 17
+2024-12-11 19:40:02,791 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:43:00,632 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:43:12,697 - INFO - Telegram message sent successfully.
+2024-12-11 19:43:12,697 - INFO - 有新的房屋: 9
+2024-12-11 19:43:12,698 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:44:24,142 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:44:34,407 - INFO - Telegram message sent successfully.
+2024-12-11 19:44:34,408 - INFO - 有新的房屋: 17
+2024-12-11 19:44:34,410 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:45:19,650 - INFO - Telegram message sent successfully.
+2024-12-11 19:45:19,651 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:47:54,286 - INFO - Telegram message sent successfully.
+2024-12-11 19:47:54,288 - INFO - 房屋信息保存到: house/house_data.json
+2024-12-11 19:51:20,691 - INFO - Telegram message sent successfully.
+2024-12-11 19:51:20,692 - INFO - 有新的房屋: 20
+2024-12-11 19:51:20,693 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 19:51:55,004 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 19:53:11,935 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 19:53:55,202 - INFO - Telegram message sent successfully.
+2024-12-11 19:53:55,203 - INFO - 有新的房屋: 20
+2024-12-11 19:53:55,209 - INFO - 房屋信息保存到: house/house_data_newhouse.json
+2024-12-11 19:54:30,164 - INFO - Telegram message sent successfully.
+2024-12-11 19:54:30,164 - INFO - 有新的房屋: 20
+2024-12-11 19:54:30,167 - INFO - 房屋信息保存到: house/house_data_newhouse.json
+2024-12-11 19:55:10,763 - INFO - Telegram message sent successfully.
+2024-12-11 19:55:10,763 - INFO - 有新的房屋: 20
+2024-12-11 19:55:10,765 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 19:56:56,940 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 19:57:11,100 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 20:00:46,497 - INFO - Telegram message sent successfully.
+2024-12-11 20:00:46,497 - INFO - 有新的房屋: 4
+2024-12-11 20:00:46,498 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-11 20:00:56,790 - INFO - Telegram message sent successfully.
+2024-12-11 20:00:56,790 - INFO - 有新的房屋: 20
+2024-12-11 20:00:56,792 - INFO - 房屋信息保存到: house/house_data_sale.json
+2024-12-12 13:05:16,457 - INFO - Telegram message sent successfully.
+2024-12-12 13:05:16,457 - INFO - 有新的房屋: 18
+2024-12-12 13:05:16,459 - INFO - 房屋信息保存到: house/house_data_newhouse.json
+2024-12-12 13:11:36,033 - INFO - 房屋信息保存到: house/house_data_newhouse.json

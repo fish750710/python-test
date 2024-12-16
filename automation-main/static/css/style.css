@@ -1,0 +1,44 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, select, button {
+    padding: 5px;
+}
+
+#result {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+}
+
+.task {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.pending {
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+}
+
+.success {
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.failed {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}

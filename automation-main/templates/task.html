@@ -1,0 +1,500 @@
+{% extends "base.html" %}
+{% set show_sidebar = true %}
+
+{% block title %}Task Management{% endblock %}
+
+{% block styles %}
+<style>
+    .task-list-item { 
+        margin-bottom: 15px; 
+    }
+
+    .form-container { 
+        background-color: var(--darker-bg);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+        color: var(--dark-text);
+    }
+
+    .form-control, .form-select {
+        background-color: var(--dark-bg);
+        border-color: #495057;
+        color: var(--dark-text);
+    }
+
+    .form-control:focus, .form-select:focus {
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+    }
+
+    .card {
+        background-color: var(--darker-bg);
+        border-color: #495057;
+        color: var(--dark-text);
+    }
+
+    .status-completed {
+        color: #28a745;
+    }
+
+    .status-failed {
+        color: #dc3545;
+    }
+
+    .status-pending {
+        color: #ffc107;
+    }
+
+    /* 表單元素的暗色主題樣式 */
+    .form-check-input {
+        background-color: var(--dark-bg);
+        border-color: #495057;
+    }
+
+    .form-check-input:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .form-text {
+        color: #6c757d;
+    }
+
+    /* 按鈕樣式 */
+    .btn-primary {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+
+    /* 文本區域樣式 */
+    textarea.form-control {
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+        border-color: #495057;
+    }
+
+    textarea.form-control:focus {
+        background-color: var(--dark-bg);
+        color: var(--dark-text);
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Task Manager</h1>
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-container">
+                <h2 class="mb-3">Add New Task</h2>
+                <form id="task-form">
+                    <input type="hidden" name="action" value="add_task">
+                    <div class="mb-3">
+                        <label for="site" class="form-label">站點(site)</label>
+                        <input type="text" class="form-control" id="site" name="site" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="url" class="form-label">URL</label>
+                        <input type="text" class="form-control" id="url" name="url" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="busername" class="form-label">後台帳號</label>
+                        <input type="text" class="form-control" id="busername" name="busername" value="QA_script" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bpassword" class="form-label">後台密碼</label>
+                        <input type="password" class="form-control" id="bpassword" name="bpassword" value="Aa1234567" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="key" class="form-label">Key</label>
+                        <input type="text" class="form-control" id="key" name="key" value="LZIKYCPMXUMGVBQT" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="task-type" class="form-label">任務類型</label>
+                        <select class="form-select" id="task-type" name="task_type">
+                            <option value="add_money">後台加錢</option>
+                            <option value="register_batch">批量操作</option>
+                            <option value="register_agent">代理批量操作</option>
+                            <option value="bet">下注</option>
+                        </select>
+                    </div>
+                    <div id="parameters" class="mb-3">
+                        <!-- Dynamic parameters will be added here -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <h2 class="mb-3">Task List</h2>
+            <button id="refresh-tasks" class="btn btn-secondary mb-3">
+                <i class="bi bi-arrow-clockwise"></i> 刷新任务状态
+            </button>
+            <div id="task-list">
+                <!-- 任务列表将通过 JavaScript 动态更新 -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    const taskTypeSelect = document.getElementById('task-type');
+    const parametersDiv = document.getElementById('parameters');
+
+    function updateParameters() {
+        const taskType = taskTypeSelect.value;
+        let parameterFields = '';
+        
+        if (taskType === 'add_money') {
+            parameterFields = `
+                <div class="mb-3">
+                    <label for="userid" class="form-label">會員帳號</label>
+                    <input type="text" class="form-control" id="userid" name="userid" required>
+                </div>
+                <div class="mb-3">
+                    <label for="money" class="form-label">加錢額度</label>
+                    <input type="number" class="form-control" id="money" name="money" required>
+                </div>
+                <div class="mb-3">
+                    <label for="currency" class="form-label">幣種</label>
+                    <input type="text" class="form-control" id="currency" name="currency" value="BRL" required>
+                </div>
+                <div class="mb-3">
+                    <label for="betrate" class="form-label">稽查比例</label>
+                    <input type="number" class="form-control" id="betrate" name="betrate" value="0" required>
+                </div>
+                <div class="mb-3">
+                    <label for="type" class="form-label">Type</label>
+                    <select class="form-select" id="type" name="type">
+                        <option value="bonus">贈送彩金</option>
+                        <option value="manual">人工充值</option>
+                    </select>
+                </div>
+            `;
+        } else if (taskType === 'register_batch') {
+            parameterFields = `
+                <div class="mb-3">
+                    <label for="batch_type" class="form-label">操作類型</label>
+                    <select class="form-select" id="batch_type" name="batch_type">
+                        <option value="number">數字範圍</option>
+                        <option value="list">帳號列表</option>
+                    </select>
+                </div>
+                <div id="number_batch_fields">
+                    <div class="mb-3">
+                        <label for="id_prefix" class="form-label">ID 前綴</label>
+                        <input type="text" class="form-control" id="id_prefix" name="id_prefix">
+                    </div>
+                    <div class="mb-3">
+                        <label for="start" class="form-label">起始數字</label>
+                        <input type="number" class="form-control" id="start" name="start">
+                    </div>
+                    <div class="mb-3">
+                        <label for="end" class="form-label">結束數字</label>
+                        <input type="number" class="form-control" id="end" name="end">
+                    </div>
+                </div>
+                <div id="list_batch_fields" style="display: none;">
+                    <div class="mb-3">
+                        <label for="account_list" class="form-label">帳號列表（用逗號分隔）</label>
+                        <input type="text" class="form-control" id="account_list" name="account_list">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label">分享轉盤Note (選填)</label>
+                    <input type="text" class="form-control" id="note" name="note">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="add_money_after_register" name="add_money_after_register">
+                    <label class="form-check-label" for="add_money_after_register">加錢</label>
+                </div>
+                <div id="money_options" style="display: none;">
+                    <div class="mb-3">
+                        <label for="money_amount" class="form-label">加錢額度</label>
+                        <input type="number" class="form-control" id="money_amount" name="money_amount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="currency" class="form-label">幣種</label>
+                        <input type="text" class="form-control" id="currency" name="currency" value="BRL">
+                    </div>
+                    <div class="mb-3">
+                        <label for="betrate" class="form-label">稽查比例</label>
+                        <input type="number" class="form-control" id="betrate" name="betrate" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="type" class="form-label">方式</label>
+                        <select class="form-select" id="type" name="type">
+                            <option value="bonus">贈送彩金</option>
+                            <option value="manual">人工充值</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="bet_after_register" name="bet_after_register">
+                    <label class="form-check-label" for="bet_after_register">投注</label>
+                </div>
+                <div id="bet_options" style="display: none;">
+                    <div class="mb-3">
+                        <label for="bet_amount" class="form-label">投注額度</label>
+                        <input type="number" class="form-control" id="bet_amount" name="bet_amount">
+                    </div>
+                </div>
+            `;
+        } else if (taskType === 'register_agent') {
+            parameterFields = `
+                <div class="mb-3">
+                    <label for="structure" class="form-label">代理結構 (JSON)</label>
+                    <textarea class="form-control" id="structure" name="structure" rows="5"></textarea>
+                    <div class="mt-2">
+                        <small class="form-text text-muted">Example: { "a1": [ { "b1": [ "c1", "c2" ] }, "b2" ] }</small>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="id_prefix" class="form-label">ID 前綴</label>
+                    <input type="text" class="form-control" id="id_prefix" name="id_prefix">
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label">分享轉盤Note (選填)</label>
+                    <input type="text" class="form-control" id="note" name="note">
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="add_money_after_register" name="add_money_after_register">
+                    <label class="form-check-label" for="add_money_after_register">加錢</label>
+                </div>
+                <div id="money_options" style="display: none;">
+                    <div class="mb-3">
+                        <label for="money_amount" class="form-label">加錢額度</label>
+                        <input type="number" class="form-control" id="money_amount" name="money_amount">
+                    </div>
+                    <div class="mb-3">
+                        <label for="currency" class="form-label">幣種</label>
+                        <input type="text" class="form-control" id="currency" name="currency" value="BRL">
+                    </div>
+                    <div class="mb-3">
+                        <label for="betrate" class="form-label">稽查比例</label>
+                        <input type="number" class="form-control" id="betrate" name="betrate" value="0">
+                    </div>
+                    <div class="mb-3">
+                        <label for="type" class="form-label">方式</label>
+                        <select class="form-select" id="type" name="type">
+                            <option value="bonus">贈送彩金</option>
+                            <option value="manual">人工充值</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="bet_after_register" name="bet_after_register">
+                    <label class="form-check-label" for="bet_after_register">投注</label>
+                </div>
+                <div id="bet_options" style="display: none;">
+                    <div class="mb-3">
+                        <label for="bet_amount" class="form-label">投注額度</label>
+                        <input type="number" class="form-control" id="bet_amount" name="bet_amount">
+                    </div>
+                </div>
+            `;
+        } else if (taskType === 'bet') {
+            parameterFields = `
+                <div class="mb-3">
+                    <label for="userid" class="form-label">會員帳號</label>
+                    <input type="text" class="form-control" id="userid" name="userid" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">密碼</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="mb-3">
+                    <label for="bet_amount" class="form-label">投注額度</label>
+                    <input type="number" class="form-control" id="bet_amount" name="bet_amount" required>
+                </div>
+            `;
+        }
+        
+        parametersDiv.innerHTML = parameterFields;
+
+        // 設置事件監聽器
+        setupEventListeners();
+    }
+
+    function setupEventListeners() {
+        const addMoneyCheckbox = document.getElementById('add_money_after_register');
+        const moneyOptionsDiv = document.getElementById('money_options');
+        const betCheckbox = document.getElementById('bet_after_register');
+        const betOptionsDiv = document.getElementById('bet_options');
+        const batchTypeSelect = document.getElementById('batch_type');
+
+        if (addMoneyCheckbox) {
+            addMoneyCheckbox.addEventListener('change', function() {
+                moneyOptionsDiv.style.display = this.checked ? 'block' : 'none';
+            });
+        }
+
+        if (betCheckbox) {
+            betCheckbox.addEventListener('change', function() {
+                betOptionsDiv.style.display = this.checked ? 'block' : 'none';
+            });
+        }
+
+        if (batchTypeSelect) {
+            batchTypeSelect.addEventListener('change', function() {
+                const numberBatchFields = document.getElementById('number_batch_fields');
+                const listBatchFields = document.getElementById('list_batch_fields');
+                if (this.value === 'number') {
+                    numberBatchFields.style.display = 'block';
+                    listBatchFields.style.display = 'none';
+                } else {
+                    numberBatchFields.style.display = 'none';
+                    listBatchFields.style.display = 'block';
+                }
+            });
+        }
+    }
+
+    // 初始化表單
+    taskTypeSelect.addEventListener('change', updateParameters);
+    updateParameters();
+
+    // 表單提交處理
+    document.getElementById('task-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        
+        // 處理表單數據
+        handleFormSubmission(formData);
+    });
+
+    // 任務列表更新
+    function updateTasks() {
+        fetch('/tasks')
+            .then(response => response.json())
+            .then(data => {
+                const taskList = document.getElementById('task-list');
+                taskList.innerHTML = data.tasks.map(task => createTaskCard(task)).join('');
+            });
+    }
+
+    function createTaskCard(task) {
+        let resultDisplay = formatTaskResult(task);
+        return `
+            <div class="card task-list-item">
+                <div class="card-body">
+                    <h5 class="card-title">Task ID: ${task.id}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Type: ${task.task_type}</h6>
+                    <p class="card-text">
+                        <strong>Status:</strong> 
+                        <span class="${getStatusClass(task.status)}">
+                            ${task.status}
+                        </span><br>
+                        <strong>Created:</strong> ${new Date(task.created_at).toLocaleString()}<br>
+                        ${resultDisplay}
+                        ${task.reason ? `<strong>Reason:</strong> ${task.reason}<br>` : ''}
+                    </p>
+                </div>
+            </div>
+        `;
+    }
+
+    function formatTaskResult(task) {
+        if (!task.result) return '';
+        
+        try {
+            const result = JSON.parse(task.result);
+            let formattedResult = '';
+
+            if (result.success_count !== undefined) {
+                formattedResult += `
+                    <strong>Success:</strong> ${result.success_count}<br>
+                    <strong>Failed:</strong> ${result.failed_count}<br>
+                `;
+                if (result.failed_details?.length > 0) {
+                    formattedResult += '<strong>Failed accounts:</strong><br>';
+                    result.failed_details.forEach(detail => {
+                        formattedResult += `${detail.id}: ${detail.reason}<br>`;
+                    });
+                }
+            }
+
+            if (result.add_money_results) {
+                formattedResult += '<strong>Add Money Results:</strong><br>';
+                result.add_money_results.forEach(r => {
+                    formattedResult += `${r.id}: ${r.result}${r.error ? ' - ' + r.error : ''}<br>`;
+                });
+            }
+
+            if (result.bet_results) {
+                formattedResult += '<strong>Bet Results:</strong><br>';
+                result.bet_results.forEach(r => {
+                    formattedResult += `${r.id}: ${r.result}${r.error ? ' - ' + r.error : ''}<br>`;
+                });
+            }
+
+            return formattedResult || JSON.stringify(result, null, 2);
+        } catch (e) {
+            return `<strong>Result:</strong> ${task.result}<br>`;
+        }
+    }
+
+    function getStatusClass(status) {
+        switch(status) {
+            case 'completed': return 'status-completed';
+            case 'failed': return 'status-failed';
+            case 'pending': return 'status-pending';
+            default: return '';
+        }
+    }
+
+    function handleFormSubmission(formData) {
+        fetch('/task', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.result);
+            // 保存當前值
+            const siteValue = document.getElementById('site').value;
+            const urlValue = document.getElementById('url').value;
+            const taskType = document.getElementById('task-type').value;
+            
+            // 重置表單
+            document.getElementById('task-form').reset();
+            
+            // 恢復保存的值
+            document.getElementById('site').value = siteValue;
+            document.getElementById('url').value = urlValue;
+            document.getElementById('task-type').value = taskType;
+            
+            // 重新初始化
+            updateParameters();
+            updateTasks();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred: ' + error);
+        });
+    }
+
+    // 設置自動更新
+    document.getElementById('refresh-tasks').addEventListener('click', updateTasks);
+    setInterval(updateTasks, 5000);
+    document.addEventListener('DOMContentLoaded', updateTasks);
+</script>
+{% endblock %} 
